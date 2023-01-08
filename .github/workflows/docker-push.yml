@@ -33,7 +33,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: zethange:mobile-store-api:latest
+          tags: zethange/mobile-store-api:latest
       -
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
