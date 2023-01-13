@@ -77,7 +77,8 @@ export class UsersService {
       errorResponse.errors['email'] = `Пользователя с ID ${id} не существует`;
       throw new HttpException(errorResponse, HttpStatus.UNPROCESSABLE_ENTITY);
     } else {
-      return await this.usersRepository.update(dto, { where: { id }});
+      await this.usersRepository.update(dto, { where: { id }});
+      return this.usersRepository.findByPk(id);
     }
   }
 }
