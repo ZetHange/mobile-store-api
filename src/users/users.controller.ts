@@ -1,6 +1,6 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { CreateUserDto } from './dto/create-user.dto';
+import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
+import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { CreateUserDto, UpdateUserDto } from './dto/create-user.dto';
 import { UsersService } from './users.service';
 
 @Controller('users')
@@ -10,16 +10,25 @@ export class UsersController {
     constructor(private readonly usersService: UsersService) {}
 
     @Get()
+    @ApiResponse({ status: 200, type: [CreateUserDto] })
     getAllUsers() {
         return this.usersService.getAllUsers();
     }
     
     @Get(':id')
+    @ApiResponse({ status: 200, type: CreateUserDto })
     getUserById(@Param('id') id: number) {
         return this.usersService.getUserById(id);
     }
 
+    @Put(':id')
+    @ApiResponse({ status: 200, type: UpdateUserDto })
+    updateUserById(@Param('id') id: number, @Body() dto: UpdateUserDto) {
+        return this.usersService.updateUserById(id, dto);
+    }
+
     @Post()
+    @ApiResponse({ status: 200, type: CreateUserDto })
     createUser(@Body() dto: CreateUserDto) {
         return this.usersService.createUser(dto);
     }

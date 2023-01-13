@@ -15,7 +15,9 @@ async function bootstrap() {
     .setVersion('0.0')
     .addTag('Приложения', 'Операции с приложениями')
     .addTag('Пользователи', 'Операции с пользователями')
-    .addBasicAuth()
+    .addTag('Роли', 'Операции с ролями')
+    .addTag('Аутентификация', 'Вход и выход')
+    .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('/api/docs', app, document);

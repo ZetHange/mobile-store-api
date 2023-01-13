@@ -19,9 +19,19 @@ export class AppsService {
     console.log(
       `${this.newDate} - выполнение: создание нового прилжения (${dto.title})`,
     );
+    const errorResponse = {
+      error: {},
+    };
 
-    const user = await this.appsRepository.create(dto);
-    return user;
+    const appByTitle = this.appsRepository.findOne({
+      where: { title: dto.title },
+    });
+    if (appByTitle) {
+      errorResponse.error['title'] = `${dto.title} уже существует`;
+      throw new HttpException(errorResponse, HttpStatus.UNPROCESSABLE_ENTITY);
+    } else {
+      return await this.appsRepository.create(dto);
+    }
   }
 
   async getAppByTitle(title: string) {

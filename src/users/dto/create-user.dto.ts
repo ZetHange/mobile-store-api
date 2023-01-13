@@ -23,3 +23,19 @@ export class CreateUserDto {
     })
     readonly password: string;
 }
+
+export class UpdateUserDto {
+    @IsString({ message: "Не строка" })
+    @ApiProperty({
+        example: 'user78539414',
+        description: 'Никнейм пользователя',
+    })  
+    readonly nickname: string;
+
+    @IsEmail()
+    @ApiProperty({
+        example: 'user@example.com',
+        description: 'Электронная почта',
+    })
+    readonly email: string;
+}
