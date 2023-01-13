@@ -23,13 +23,18 @@ export class AppsService {
       error: {},
     };
 
-    const appByTitle = this.appsRepository.findOne({
-      where: { title: dto.title },
+    const app = await this.appsRepository.findOne({
+      where: {
+        title: dto.title,
+      },
     });
-    if (appByTitle) {
+
+    if (app) {
       errorResponse.error['title'] = `${dto.title} уже существует`;
       throw new HttpException(errorResponse, HttpStatus.UNPROCESSABLE_ENTITY);
-    } else {
+    }
+
+    if (!app) {
       return await this.appsRepository.create(dto);
     }
   }
