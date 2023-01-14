@@ -11,8 +11,9 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle('MOBILE STORE API')
-    .setDescription('API для магазина приложений, написанный на Nest.js и TypeScript')
-    .setVersion('0.0')
+    .setDescription('Сервисы REST-API для магазина приложений, написанные на Nest.js и TypeScript')
+    .setExternalDoc('Store Studio', '/studio')
+    .setVersion('0.1')
     .addTag('Приложения', 'Операции с приложениями')
     .addTag('Пользователи', 'Операции с пользователями')
     .addTag('Роли', 'Операции с ролями')

@@ -11,6 +11,7 @@ POSTGRES_PORT=5432
 POSTGRES_DB=store-db
 POSTGRES_USER=postgres
 POSTGRES_PASSWORD=123
+PRIVATE_KEY=SECRET
 ```
 After that, run these commands:
 ```bash
