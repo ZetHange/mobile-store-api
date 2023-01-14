@@ -1,5 +1,6 @@
 import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { AddRoleDto } from './dto/add-role.dto';
 import { CreateUserDto, UpdateUserDto } from './dto/create-user.dto';
 import { UsersService } from './users.service';
 
@@ -31,5 +32,11 @@ export class UsersController {
     @ApiResponse({ status: 200, type: CreateUserDto })
     createUser(@Body() dto: CreateUserDto) {
         return this.usersService.createUser(dto);
+    }
+
+    @Post()
+    @ApiResponse({ status: 200 })
+    addRole(@Body() dto: AddRoleDto) {
+        return this.usersService.addRole(dto);
     }
 }

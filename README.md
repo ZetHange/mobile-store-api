@@ -7,8 +7,14 @@ Before launching, you need to create a configuration file `.env` in the root of 
 ```env
 PORT=80
 POSTGRES_HOST=localhost
-POSTGRESS_PORT=5432
-POSTGRES_USER=postgres
-POSTGRESS_PASSWORD=123
+POSTGRES_PORT=5432
 POSTGRES_DB=store-db
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=123
 ```
+After that, run these commands:
+```bash
+docker-compose build
+docker-compose up
+```
+Make sure that dokker and docker-compose are installed on your server
