@@ -18,4 +18,4 @@ After that, run these commands:
 docker-compose build
 docker-compose up
 ```
-Make sure that dokker and docker-compose are installed on your server
+Make sure that doсker and docker-compose are installed on your server

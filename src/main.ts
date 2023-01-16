@@ -7,6 +7,7 @@ async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule)
   app.setGlobalPrefix('api')
   app.disable('x-powered-by');
+  app.enableCors()
   const port = Number(process.env.PORT) || 3000
 
   const config = new DocumentBuilder()
@@ -15,6 +16,7 @@ async function bootstrap() {
     .setExternalDoc('Store Studio', '/studio')
     .setVersion('0.1')
     .addTag('Приложения', 'Операции с приложениями')
+    .addTag('Теги', 'Операции с тегами')
     .addTag('Пользователи', 'Операции с пользователями')
     .addTag('Роли', 'Операции с ролями')
     .addTag('Аутентификация', 'Вход и выход')

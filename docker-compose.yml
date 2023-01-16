@@ -13,7 +13,7 @@ services:
     ports:
       - 80:80
       - 9229:9229
-    command: npm run start:dev
+    command: node dist/main.js
     depends_on:
       - postgres
     restart: always

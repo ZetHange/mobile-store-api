@@ -1,4 +1,6 @@
-import { Column, DataType, Model, Table } from "sequelize-typescript";
+import { BelongsToMany, Column, DataType, Model, Table } from "sequelize-typescript";
+import { AppTags } from "src/tags/models/app-tags.model";
+import { Tag } from "src/tags/models/tags.model";
 
 interface AppCreateAttr {
     title: string;
@@ -21,4 +23,7 @@ export class App extends Model<App, AppCreateAttr> {
 
     @Column({type: DataType.STRING})
     developer: string;
+
+    @BelongsToMany(() => Tag, () => AppTags)
+    tags: Tag[];
 }

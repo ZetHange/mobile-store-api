@@ -9,6 +9,10 @@ import { AuthModule } from './auth/auth.module';
 import { RolesModule } from './roles/roles.module';
 import { Role } from './roles/models/roles.model';
 import { UserRoles } from './roles/models/user-roles.model';
+import { TagsModule } from './tags/tags.module';
+import { Tag } from './tags/models/tags.model';
+import { AppTags } from './tags/models/app-tags.model';
+import { DevelopersModule } from './developers/developers.module';
 
 @Module({
   imports: [
@@ -24,11 +28,13 @@ import { UserRoles } from './roles/models/user-roles.model';
       password: String(process.env.POSTGRES_PASSWORD),
       database: process.env.POSTGRES_DB,
       autoLoadModels: true,
-      models: [App, User, Role, UserRoles]
+      models: [App, User, Role, UserRoles, Tag, AppTags]
     }),
     UsersModule,
     AuthModule,
     RolesModule,
+    TagsModule,
+    DevelopersModule,
   ],
 })
 export class AppModule {}
