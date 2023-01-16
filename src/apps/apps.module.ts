@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { AppsService } from './apps.service';
 import { AppsController } from './apps.controller';
 import { App } from './models/apps.model';
@@ -13,7 +13,7 @@ import { AuthModule } from 'src/auth/auth.module';
   controllers: [AppsController],
   imports: [
     SequelizeModule.forFeature([App, Tag, AppTags]),
-    AuthModule,
+    forwardRef(() => AuthModule),
     TagsModule,
   ],
 })
