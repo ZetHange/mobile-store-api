@@ -1,11 +1,12 @@
 import { Body, Controller, Delete, Get, Param, Post, UseGuards } from '@nestjs/common';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Roles } from 'src/auth/decorators/roles-auth.decorator';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { AppsService } from './apps.service';
 import { AddTagsDto } from './dto/add-tags.dto';
 import { CreateAppDto } from './dto/create-app.dto';
 
+@ApiBearerAuth()
 @ApiTags('Приложения')
 @Controller('apps')
 export class AppsController {
