@@ -10,7 +10,10 @@ export class RolesService {
 
   async getAllRoles(): Promise<Role[]> {
     console.log(`${this.newDate} - выполнение: получение всех ролей`);
-    return await this.rolesRepository.findAll({ include: ['users'], order: ['id'] });
+    return await this.rolesRepository.findAll({
+      include: ['users'],
+      order: ['id'],
+    });
   }
 
   async createRole(dto: CreateRoleDto) {
@@ -25,7 +28,7 @@ export class RolesService {
     const role = await this.rolesRepository.findOne({
       where: {
         title: dto.title,
-      } 
+      },
     });
 
     if (role) {

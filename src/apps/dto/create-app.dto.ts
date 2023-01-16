@@ -17,7 +17,10 @@ export class CreateAppDto {
   readonly description: string;
 
   @IsString({ message: 'Не строка' })
-  @ApiProperty({ example: '/static/apps/slug/image.webp', description: 'Иконка' })
+  @ApiProperty({
+    example: '/static/apps/slug/image.webp',
+    description: 'Иконка',
+  })
   readonly image: string;
 
   @IsString({ message: 'Не строка' })

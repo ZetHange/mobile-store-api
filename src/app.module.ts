@@ -28,7 +28,7 @@ import { DevelopersModule } from './developers/developers.module';
       password: String(process.env.POSTGRES_PASSWORD),
       database: process.env.POSTGRES_DB,
       autoLoadModels: true,
-      models: [App, User, Role, UserRoles, Tag, AppTags]
+      models: [App, User, Role, UserRoles, Tag, AppTags],
     }),
     UsersModule,
     AuthModule,

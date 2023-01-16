@@ -48,8 +48,8 @@ export class UsersService {
       where: { nickname },
       include: ['roles'],
     });
-    
-    return user
+
+    return user;
   }
 
   async getUserByEmail(email: string) {
