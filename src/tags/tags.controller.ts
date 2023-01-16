@@ -1,8 +1,15 @@
-import { Body, Controller, Get, Post } from "@nestjs/common";
-import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
-import { CreateTagDto } from "./dto/create-tag.dto";
-import { TagsService } from "./tags.service";
-
+import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import {
+    ApiBearerAuth,
+  ApiOperation,
+  ApiProperty,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
+import { Roles } from 'src/auth/decorators/roles-auth.decorator';
+import { RolesGuard } from 'src/auth/guards/roles.guard';
+import { CreateTagDto } from './dto/create-tag.dto';
+import { TagsService } from './tags.service';
 
 @ApiBearerAuth()
 @ApiTags('Теги')
@@ -20,6 +27,8 @@ export class TagsController {
   @Post()
   @ApiOperation({ summary: 'Создание нового тега' })
   @ApiResponse({ status: 200 })
+  @UseGuards(RolesGuard)
+  @Roles('ADMIN')
   createTag(@Body() dto: CreateTagDto) {
     return this.tagsService.createTag(dto);
   }
