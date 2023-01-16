@@ -38,7 +38,7 @@ export class TagsService {
   }
 
   async getTagById(id: number) {
-    const tag = await this.tagsRepository.findByPk(id)
+    const tag = await this.tagsRepository.findByPk(id);
     return tag;
   }
 }

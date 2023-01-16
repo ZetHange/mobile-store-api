@@ -10,10 +10,7 @@ import { AuthModule } from 'src/auth/auth.module';
 @Module({
   providers: [TagsService],
   controllers: [TagsController],
-  imports: [
-    SequelizeModule.forFeature([App, Tag, AppTags]),
-    AuthModule,
-  ],
+  imports: [SequelizeModule.forFeature([App, Tag, AppTags]), AuthModule],
   exports: [TagsService],
 })
 export class TagsModule {}

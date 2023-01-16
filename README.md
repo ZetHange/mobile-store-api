@@ -4,6 +4,7 @@
 </div>
 
 Before launching, you need to create a configuration file `.env` in the root of the project, for example:
+
 ```env
 PORT=80
 POSTGRES_HOST=localhost
@@ -13,9 +14,12 @@ POSTGRES_USER=postgres
 POSTGRES_PASSWORD=123
 PRIVATE_KEY=SECRET
 ```
+
 After that, run these commands:
+
 ```bash
 docker-compose build
 docker-compose up
 ```
+
 Make sure that doсker and docker-compose are installed on your server

@@ -4,6 +4,6 @@ import { DevelopersService } from './developers.service';
 
 @Module({
   controllers: [DevelopersController],
-  providers: [DevelopersService]
+  providers: [DevelopersService],
 })
 export class DevelopersModule {}

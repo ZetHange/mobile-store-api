@@ -7,21 +7,26 @@ import { App } from './models/apps.model';
 
 @Injectable()
 export class AppsService {
-  constructor(@InjectModel(App) private appsRepository: typeof App,
-              private tagsService: TagsService) {}
+  constructor(
+    @InjectModel(App) private appsRepository: typeof App,
+    private tagsService: TagsService,
+  ) {}
   newDate = new Date().toISOString();
 
   async getAllApps() {
     console.log(`${this.newDate} - выполнение: получение всех приложений`);
 
-    const users = await this.appsRepository.findAll({ include: ['tags'], order: ['id'] });
+    const users = await this.appsRepository.findAll({
+      include: ['tags'],
+      order: ['id'],
+    });
     return users;
   }
 
   async deleteAppByTitle(title: string) {
-    const app = await this.appsRepository.findOne({ where: {title}})
+    const app = await this.appsRepository.findOne({ where: { title } });
     if (app) {
-      await this.appsRepository.destroy({where: {title}})
+      await this.appsRepository.destroy({ where: { title } });
     } else {
       throw new HttpException('Приложение не найдено', HttpStatus.NOT_FOUND);
     }
@@ -72,7 +77,7 @@ export class AppsService {
   }
 
   async getAppById(id: number) {
-    return await this.appsRepository.findByPk(id)
+    return await this.appsRepository.findByPk(id);
   }
 
   async addTag(dto: AddTagsDto) {
