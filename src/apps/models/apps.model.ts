@@ -11,6 +11,7 @@ import { Tag } from 'src/tags/models/tags.model';
 interface AppCreateAttr {
   title: string;
   description: string;
+  image: string;
 }
 
 @Table({ tableName: 'apps' })

@@ -5,8 +5,11 @@ import {
   Get,
   Param,
   Post,
+  UploadedFile,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Roles } from 'src/auth/decorators/roles-auth.decorator';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
@@ -18,6 +21,7 @@ import { CreateAppDto } from './dto/create-app.dto';
 @ApiBearerAuth()
 @Controller('apps')
 export class AppsController {
+  fileService: any;
   constructor(private readonly appsService: AppsService) {}
 
   @Get()
@@ -48,8 +52,9 @@ export class AppsController {
   @ApiResponse({ status: 200 })
   @UseGuards(RolesGuard)
   @Roles('ADMIN')
-  createApp(@Body() dto: CreateAppDto) {
-    return this.appsService.createApp(dto);
+  @UseInterceptors(FileInterceptor('image'))
+  createApp(@Body() dto: CreateAppDto, @UploadedFile() image: any) {
+    return this.appsService.createApp(dto, image);
   }
 
   @Post('tag')

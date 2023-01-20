@@ -1,5 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
+import { FilesService } from 'src/files/files.service';
 import { TagsService } from 'src/tags/tags.service';
 import { AddTagsDto } from './dto/add-tags.dto';
 import { CreateAppDto } from './dto/create-app.dto';
@@ -10,12 +11,9 @@ export class AppsService {
   constructor(
     @InjectModel(App) private appsRepository: typeof App,
     private tagsService: TagsService,
+    private fileService: FilesService,
   ) {}
-  newDate = new Date().toISOString();
-
   async getAllApps() {
-    console.log(`${this.newDate} - выполнение: получение всех приложений`);
-
     const users = await this.appsRepository.findAll({
       include: ['tags'],
       order: ['id'],
@@ -32,10 +30,7 @@ export class AppsService {
     }
   }
 
-  async createApp(dto: CreateAppDto) {
-    console.log(
-      `${this.newDate} - выполнение: создание нового приложения (${dto.title})`,
-    );
+  async createApp(dto: CreateAppDto, image: string) {
     const errorResponse = {
       error: {},
     };
@@ -49,18 +44,14 @@ export class AppsService {
     if (app) {
       errorResponse.error['title'] = `${dto.title} уже существует`;
       throw new HttpException(errorResponse, HttpStatus.UNPROCESSABLE_ENTITY);
-    }
-
-    if (!app) {
-      return await this.appsRepository.create(dto);
+    } else if (!app) {
+      const fileName = await this.fileService.createImageFile(image);
+      const app = await this.appsRepository.create({ ...dto, image: fileName });
+      return app;
     }
   }
 
   async getAppByTitle(title: string) {
-    console.log(
-      `${this.newDate} - выполнение: получение приложения по названию (${title})`,
-    );
-
     const app = await this.appsRepository.findOne({
       where: {
         title,
@@ -70,7 +61,7 @@ export class AppsService {
       return app;
     } else {
       throw new HttpException(
-        `Приложение <${title}> не найдено`,
+        `Приложение ${title} не найдено`,
         HttpStatus.NOT_FOUND,
       );
     }
@@ -81,10 +72,6 @@ export class AppsService {
   }
 
   async addTag(dto: AddTagsDto) {
-    console.log(
-      `${this.newDate} - выполнение: добавление тега #${dto.tagId} приложению #${dto.appId}`,
-    );
-
     const tag = await this.tagsService.getTagById(dto.tagId);
     const app = await this.getAppById(dto.appId);
     if (tag && app) {

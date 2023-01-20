@@ -1,7 +1,8 @@
 import { Module } from '@nestjs/common';
-import { AppsModule } from './apps/apps.module';
+import * as path from "path";
 import { SequelizeModule } from '@nestjs/sequelize';
 import { ConfigModule } from '@nestjs/config';
+import { AppsModule } from './apps/apps.module';
 import { App } from './apps/models/apps.model';
 import { UsersModule } from './users/users.module';
 import { User } from './users/models/users.model';
@@ -13,10 +14,14 @@ import { TagsModule } from './tags/tags.module';
 import { Tag } from './tags/models/tags.model';
 import { AppTags } from './tags/models/app-tags.model';
 import { DevelopersModule } from './developers/developers.module';
+import { FilesModule } from './files/files.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
 
 @Module({
   imports: [
-    AppsModule,
+    ServeStaticModule.forRoot({
+      rootPath: path.resolve(__dirname, 'static'),
+    }),
     ConfigModule.forRoot({
       envFilePath: `.env`,
     }),
@@ -35,6 +40,8 @@ import { DevelopersModule } from './developers/developers.module';
     RolesModule,
     TagsModule,
     DevelopersModule,
+    FilesModule,
+    AppsModule,
   ],
 })
 export class AppModule {}

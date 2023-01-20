@@ -7,6 +7,7 @@ import { Tag } from 'src/tags/models/tags.model';
 import { AppTags } from 'src/tags/models/app-tags.model';
 import { TagsModule } from 'src/tags/tags.module';
 import { AuthModule } from 'src/auth/auth.module';
+import { FilesModule } from 'src/files/files.module';
 
 @Module({
   providers: [AppsService],
@@ -15,6 +16,7 @@ import { AuthModule } from 'src/auth/auth.module';
     SequelizeModule.forFeature([App, Tag, AppTags]),
     forwardRef(() => AuthModule),
     TagsModule,
+    FilesModule
   ],
 })
 export class AppsModule {}
