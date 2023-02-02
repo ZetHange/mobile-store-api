@@ -13,12 +13,14 @@ export class AppsService {
     private tagsService: TagsService,
     private fileService: FilesService,
   ) {}
+  
   async getAllApps() {
-    const users = await this.appsRepository.findAll({
-      include: ['tags'],
+    const apps: App[] = await this.appsRepository.findAll({
+      include: { all: true },
       order: ['id'],
     });
-    return users;
+
+    return apps;
   }
 
   async deleteAppByTitle(title: string) {
